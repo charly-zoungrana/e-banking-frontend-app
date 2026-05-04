@@ -20,5 +20,12 @@ export class CustomerService {
     return this.http.get<Array<Customer>>(environment.backendHost+"/customers/search?keyword="+keyword);
   }
 
+  public saveCustomers(customer:Customer):Observable<Customer>{
+    return this.http.post<Customer>(environment.backendHost+"/customers",customer);
+  }
+
+ public deleteCustomer(customerId:number):Observable<void>{
+   return  this.http.delete<void>(environment.backendHost+"/customers/"+customerId);
+ }
 
 }

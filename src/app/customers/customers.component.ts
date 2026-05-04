@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CustomerService} from "../services/customer.service";
-import {catchError, Observable, throwError} from "rxjs";
+import {catchError, map, Observable, throwError} from "rxjs";
 import {Customer} from "../model/customer.model";
 import {FormBuilder, FormGroup} from "@angular/forms";
 
@@ -22,12 +22,7 @@ export class CustomersComponent implements OnInit {
     this.searchFormGroup=this.fb.group({
       keyword:this.fb.control("")
     });
-    this.customers$=this.customerService.getCustomers().pipe(
-      catchError(err => {
-        this.errorMessage=err.message;
-        return throwError(err);
-      })
-    );
+   this.handleSearchCustomer();
   }
 
   handleSearchCustomer(){
@@ -38,6 +33,25 @@ export class CustomersComponent implements OnInit {
         return throwError(err);
       })
     )
+  }
+
+  handleDeleteCustomer(customerId:number){
+    let conf=confirm("Are you sure to delete this customer?");
+    if(!conf) return;
+    this.customerService.deleteCustomer(customerId).subscribe(
+      {
+        next:()=>{
+          this.customers$=this.customers$.pipe(
+            map((data)=>{
+             return data.filter(c=>c.id!==customerId);
+            })
+          )
+        },
+        error:err => {
+          console.log(err);
+        }
+      }
+    );
   }
 
 }
