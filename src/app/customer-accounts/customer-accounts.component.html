@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="card mt-5" *ngIf="customerAccounts$|async as customerAccounts">
+    <div class="card-header">
+      <div >
+        Customer Name: <strong>{{customerAccounts.customerDTO.name}}</strong>
+      </div>
+      <div >
+        Customer Email: <strong>{{customerAccounts.customerDTO.email}}</strong>
+      </div>
+    </div>
+    <div class="card-body">
+     <table class="table">
+       <thead>
+        <th>Account Type</th>
+        <th>Creation Date</th>
+        <th>Balance</th>
+        <th>Currency</th>
+       </thead>
+       <tbody>
+         <tr *ngFor="let account of customerAccounts.bankAccountDTOS">
+           <td>{{account.type}}</td>
+           <td>{{account.createdAt|date:'dd-MM-yyyy'}}</td>
+           <td>{{account.balance|number:'1.2-2'}}</td>
+           <td>{{account.currency}}</td>
+           <td>
+             <a class="btn btn-success" (click)="handleAccountOperations(account.id)">Account Operations</a>
+           </td>
+         </tr>
+       </tbody>
+     </table>
+    </div>
+  </div>
+</div>
