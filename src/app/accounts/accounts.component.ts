@@ -4,6 +4,7 @@ import {AccountService} from "../services/account.service";
 import {catchError, Observable, throwError} from "rxjs";
 import {AccountDetails} from "../model/account.model";
 import {ActivatedRoute} from "@angular/router";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-accounts',
@@ -24,7 +25,8 @@ export class AccountsComponent implements OnInit {
   constructor(
     private fb:FormBuilder,
     private accountService:AccountService,
-    private route:ActivatedRoute
+    private route:ActivatedRoute,
+    public authService:AuthService
   ) { }
 
   ngOnInit(): void {
@@ -42,7 +44,7 @@ export class AccountsComponent implements OnInit {
       accountDestination:this.fb.control(null)
 
     })
-    this.handleSearchAccount();
+    //this.handleSearchAccount();
   }
 
   handleSearchAccount() {

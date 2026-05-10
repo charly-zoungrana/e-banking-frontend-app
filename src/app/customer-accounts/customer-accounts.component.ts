@@ -30,7 +30,7 @@ export class CustomerAccountsComponent implements OnInit {
   }
 
   handleAccountOperations(accountId:string){
-    this.router.navigateByUrl("/accounts/"+accountId);
+    this.router.navigateByUrl("/admin/accounts/"+accountId);
 
   }
 }

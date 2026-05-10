@@ -31,7 +31,7 @@ export class NewCustomerComponent implements OnInit {
       next:()=>{
         alert("Customer saved successfully!")
         //this.newCustomerFormGroup.reset();
-        this.router.navigateByUrl("/customers");
+        this.router.navigateByUrl("/admin/customers");
       },
       error:err => {
         console.log(err);
